@@ -28,9 +28,30 @@ class AbsLevel extends Sprite
     AtlasMgr.load_atlas('drones', on_sheet_loaded);
   }
 
+  static var capable_fps = 0;
+  static var ignore = 20;
   function on_sheet_loaded(drones:Spritesheet)
   {
-    Const.app.ticker.add(untyped on_tick);
+    Const.app.ticker.add(untyped function(dt:Float) {
+      if (ignore > 0) {
+        ignore--;
+        if (ignore==1 && capable_fps==0) {
+          var fps = 100/dt;
+          if (fps > 120) fps = 120;
+          if (fps < 30) fps = 30;
+          capable_fps = fps;
+          Const.app.ticker.maxFps = capable_fps;
+        }
+      }
+      var num = 1;
+      var tgt = 0.417;
+      if (capable_fps > 0) {
+        num = (120/capable_fps);
+        tgt = 0.417 * num;
+      }
+      if (dt > tgt) dt = tgt;
+      for (i in 0...num) on_tick(dt);
+    });
 
     this.drones_sheet = drones;
 
