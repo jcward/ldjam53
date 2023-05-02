@@ -1,0 +1,6 @@
+-cp src
+-cp lib/pixi/.haxelib/pixi,js/5,2,3/
+-cp lib/pixi/.haxelib/pixi-spine/2,1,14/
+
+-main Main
+-js dist/game.js

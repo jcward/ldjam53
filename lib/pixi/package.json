@@ -1,0 +1,14 @@
+{
+  "name": "pixi-dts2hx",
+  "version": "1.0.0",
+  "description": "PIXI Haxe definitions from Typescript dts",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "pixi-spine": "2.1.14",
+    "pixi.js": "5.2.3"
+  },
+  "devDependencies": {
+    "dts2hx": "0.16.0"
+  }
+}

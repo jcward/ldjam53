@@ -1,0 +1,55 @@
+$COLOR: #eee;
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size:18px;
+  color: $COLOR;
+  background-color: #111;
+  text-align:center;
+
+  * { /* no text selection */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .loading {
+    position: fixed;
+    font-size: 3vw;
+    width:100%;
+    top:25vh;
+    text-align:center;
+    opacity: 1;
+    transition: all 0.4s ease;
+    &.hide {
+      top:23vh;
+      opacity: 0;
+    }
+  }
+
+  .game-container {
+    position:relative;
+    border: 1px solid #222;
+    transform-origin: top left;
+    &.no-gc { opacity: 0; min-height: 80vh }
+
+    .pixi-container {
+      position: relative;
+      display:block;
+      .pixi-app {
+        position:absolute;
+        top:0;
+        left:0;
+        display: block;
+        width:100%;
+        height:100%;
+        image-rendering: pixelated;
+      }
+    }
+  }
+  .info {
+    margin: 15px;
+  }
+}
