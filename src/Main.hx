@@ -54,7 +54,7 @@ class Main
       width: Const.WIDTH,
       height: Const.PIXI_HEIGHT
     });
-    app.ticker.maxFPS = 120;
+
     var cont = document.body.querySelector('.pixi-container');
     cont.appendChild(app.view);
     cont.style.width = '${ Const.WIDTH }px';
