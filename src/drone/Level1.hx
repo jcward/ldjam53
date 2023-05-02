@@ -62,7 +62,7 @@ class Level1 extends AbsLevel
 
   var cleanup_blink:Void->Void;
   function after_dialog1() {
-    util.DialogBox.modal('Level 1 - First Day On The Job', 'Your FedUp 5000 is a state of the art delivery drone. Handles like a beauty... but a little delicate. Treat her like your grandma Edna, ok? Land gently, and only on the landing pads. Hit each pad, then touch down back on the lower pad, got it?', after_dialog2);
+    util.DialogBox.modal('Level 1 - First Day On The Job', 'Your FedUp 5000 is a state of the art delivery drone. Handles like a beauty... but a little delicate. Land gently, and only on the landing pads. Touch down on each pad, then back to the lower pad, got it?', after_dialog2);
   }
 
   function after_dialog2()

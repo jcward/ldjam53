@@ -137,7 +137,7 @@ class Level3 extends AbsLevel
 
     Timer.delay(function() {
       skip_intro = true;
-      util.DialogBox.modal('Level 3 Failed', 'Neither rain, nor snow, nor sleet, nor FAIL. None shall stop the drone-born mail! Try again!', function() {
+      util.DialogBox.modal('Level 3 Failed', 'Neither rain, nor snow, nor sleet, nor FAIL. None shall stop the drone-borne mail! Try again!', function() {
         this.parent.removeChild(this);
         Const.app.stage.addChild(new Level3());
       });
