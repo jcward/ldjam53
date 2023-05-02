@@ -75,10 +75,14 @@ class Level3 extends AbsLevel
 
   override function on_land(pad:LandingPad)
   {
-    if (pad.opts.is_package_src) {
-      pod.has_package = true;
-      pkg_tgt_pad = new LandingPad({ is_landable: true, x:520, y:-30 });
-      add_pad(pkg_tgt_pad);
+    if (pad.opts.is_package_src && !pod.has_package) {
+      if (num_delivered >= 3) {
+        DialogBox.label(pod, 0, 44, 'ALL DONE!', 0x22cc22, "#000000");
+      } else {
+        pod.has_package = true;
+        pkg_tgt_pad = new LandingPad({ is_landable: true, x:520, y:-30 });
+        add_pad(pkg_tgt_pad);
+      }
     }
 
     if (pad==pkg_tgt_pad && pod.has_package) {
@@ -87,7 +91,7 @@ class Level3 extends AbsLevel
       num_delivered++;
     }
 
-    var success = (pad==pads[0] && num_delivered==3);
+    var success = (pad==pads[0] && num_delivered>=3);
     if (success) {
       pod.keys_enabled = false;
       score_bonuses(function() {
