@@ -79,9 +79,9 @@ class Level1 extends AbsLevel
   var keys_hint:Sprite;
   var t0 = haxe.Timer.stamp();
 
-  override function on_tick(dt:Float)
+  override function on_sim_tick()
   {
-    super.on_tick(dt);
+    super.on_sim_tick();
 
     if (keys_hint != null) {
       keys_hint.alpha = 0.5+0.5*Math.sin((haxe.Timer.stamp() - t0)*2);

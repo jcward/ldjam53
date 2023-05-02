@@ -1,6 +1,5 @@
 class Const
 {
-
   public static inline var WIDTH = 640;
   public static inline var PIXI_HEIGHT = 320;
   public static inline var TYPE_HEIGHT = 0;

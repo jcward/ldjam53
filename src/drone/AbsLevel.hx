@@ -17,7 +17,6 @@ class AbsLevel extends Sprite
   var lifebar:IndicatorBar;
 
   var y_parallax:Array<{ s:Sprite, factor:Float }> = [];
-  var level_t0:Float;
 
   public function new(focus_enabled = true)
   {
@@ -30,7 +29,7 @@ class AbsLevel extends Sprite
 
   function on_sheet_loaded(drones:Spritesheet)
   {
-    Const.app.ticker.add(untyped on_tick);
+    Const.app.ticker.add(untyped on_frame);
 
     this.drones_sheet = drones;
 
@@ -59,15 +58,16 @@ class AbsLevel extends Sprite
     after_setup();
   }
 
+  var ixn_t0:Float; // Interaction time, for calculating time bonus
   function start_level_time_ixn()
   {
-    level_t0 = Timer.stamp();
+    ixn_t0 = Timer.stamp();
     pod.keys_enabled = true;
   }
 
   function score_bonuses(after_time_bonus:Void->Void)
   {
-    var dt = Math.floor(10*(Timer.stamp() - level_t0))/10;
+    var dt = Math.floor(10*(Timer.stamp() - ixn_t0))/10;
     var pts = Math.floor(1000 / Math.sqrt(dt));
     var dopts = { bkg_color: 0x225588, width: 300 };
     DialogBox.modal('Completed in ${ dt } seconds!', '${ pts } bonus points!', dopts, function() {
@@ -116,7 +116,25 @@ class AbsLevel extends Sprite
     addChild(particles);
   }
 
-  function on_tick(dt:Float)
+  var last_frame_t:Float = 0.0;
+  var collected_dt:Float = 0.0;
+  function on_frame(ignore_dt:Float)
+  {
+    if (last_frame_t==0) {
+      last_frame_t = Timer.stamp();
+      return;
+    }
+    var t = Timer.stamp();
+    var dt_ms = (t - last_frame_t)*1000;
+    last_frame_t = t;
+    collected_dt += dt_ms;
+    while (collected_dt >= 8) { // 8ms => 125fps
+      on_sim_tick();
+      collected_dt -= 8;
+    }
+  }
+
+  function on_sim_tick()
   {
     if (Keys.singleton.mouse_is_down) {
       if (!is_focus) {
@@ -128,8 +146,8 @@ class AbsLevel extends Sprite
     }
 
     check_remove_tgt_pad();
-    pod.on_tick(dt);
-    if (clouds != null) clouds.on_tick(dt);
+    pod.on_sim_tick();
+    if (clouds != null) clouds.on_tick(0.417); // TODO: remove dt?
     check_world_move();
     check_pads();
     check_bounds_death();

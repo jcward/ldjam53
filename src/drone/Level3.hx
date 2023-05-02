@@ -126,11 +126,6 @@ class Level3 extends AbsLevel
   var keys_hint:Sprite;
   var t0 = haxe.Timer.stamp();
 
-  override function on_tick(dt:Float)
-  {
-    super.on_tick(dt);
-  }
-
   override function die()
   {
     super.die();

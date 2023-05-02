@@ -53,22 +53,22 @@ class Pod extends Sprite
   public var keys_enabled = false;
   var fan_r:Float = 0;
   var thrust:Float = 0;
-  public function on_tick(dt:Float) {
+  public function on_sim_tick() {
     if (!landed) {
-      velocity.y += Const.gravity*dt;
+      velocity.y += Const.gravity*(0.417);
       if (velocity.y > 4) velocity.y = 4; // terminal velocity
     }
     if (keys_enabled && Keys.up()) {
       landed = false;
-      thrust = 0.8*thrust + 0.2*Const.gravity*2*dt;
+      thrust = 0.8*thrust + 0.2*Const.gravity*2*(0.417);
     } else {
       thrust = 0.8*thrust;
     }
     velocity.y -= thrust;
     var dx = 0.0;
     if (keys_enabled) {
-      if (Keys.right()) dx = 2*dt;
-      if (Keys.left()) dx -= 2*dt;
+      if (Keys.right()) dx = 2*(0.417);
+      if (Keys.left()) dx -= 2*(0.417);
     }
     fan_r = 0.9*fan_r + 0.1*dx;
     rear_fan.rotation = front_fan.rotation = fan_r / 2;
